@@ -1,0 +1,8 @@
+{
+    "require": {
+        "pre/short-closures": "^0.4.0"
+    },
+    "autoload": {
+        "files": ["paths.php"]
+    }
+}

@@ -1,0 +1,45 @@
+<?php
+
+macro {
+  ·chain(
+    ·either(
+      ·token(T_VARIABLE), // $func,
+      ·token(T_CONSTANT_ENCAPSED_STRING), // "array_map"
+      ·closure() // function($foo) { return $bar; }
+    )·first,
+    ·repeat(
+      ·chain(
+        ·rtoken("/↦/"),
+        ·either(
+          ·token(T_VARIABLE), // $func,
+          ·token(T_CONSTANT_ENCAPSED_STRING), // "array_map"
+          ·closure() // function($foo) { return $bar; }
+        )·item
+      )
+    )·rest
+  )
+} >> {
+  compose(·first, ·rest ···(, ){ ·item })
+}
+
+macro {
+  ·chain(
+    ·either(
+      ·token(T_VARIABLE), // $func,
+      ·token(T_CONSTANT_ENCAPSED_STRING), // "array_map"
+      ·closure() // function($foo) { return $bar; }
+    )·first,
+    ·repeat(
+      ·chain(
+        ·rtoken("/↤/"),
+        ·either(
+          ·token(T_VARIABLE), // $func,
+          ·token(T_CONSTANT_ENCAPSED_STRING), // "array_map"
+          ·closure() // function($foo) { return $bar; }
+        )·item
+      )
+    )·rest
+  )
+} >> {
+  partial(·first, ·rest ···(, ){ ·item })
+}

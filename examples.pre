@@ -1,0 +1,17 @@
+<?php
+
+process .."/functions.pre";
+
+$map = "array_map" ↤ function($item) {
+  return strtoupper($item);
+};
+
+$process = $map ↦ "array_reverse" ↦ function($data) {
+  return array_map(function($item) {
+    return $item . " | thing";
+  }, $data);
+};
+
+$processed = $process(["foo", "bar", "baz"]);
+
+print_r($processed);

@@ -1,0 +1,23 @@
+<?php
+
+function partial($function, ...$carried) {
+    return (...$called) => {
+        return call_user_func_array($function, array_merge($carried, $called));
+    };
+}
+
+function identity($value) {
+  return $value;
+}
+
+function compose(...$functions) {
+  return array_reduce(
+    $functions,
+    ($chain, $function) => {
+      return ($input) => {
+        return $function($chain($input));
+      };
+    },
+    "identity"
+  );
+}
